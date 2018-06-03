@@ -1,0 +1,108 @@
+<div ng-init="Init()" style="margin-left: 200px; margin-right: 200px">
+    <div class="row">
+        <!-- page header -->
+        <div class="col-lg-12">
+            <h1 class="page-header">Daftar Gejala Penyakit Mata</h1>
+        </div>
+        <!--end page header -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <!-- <div class="panel-heading">
+                    Basic Form Elements
+                </div> -->
+                <div class="panel-body">
+                    <ol type="1">
+                        <li ng-repeat="item in DatasGejala">
+                            {{$index+1}}.
+                            <a title="Tambah Penyakit" data-toggle="modal" data-target="#{{item.kd_gejala}}">{{item.nm_gejala}}</a>
+                            <div class="modal fade" id="{{item.kd_gejala}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Detail Gejala {{item.nm_gejala}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <img src="assets/img/{{item.Photo}}" width="500">
+
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <b>Keterangan</b><br> {{item.Keterangan}}
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary" value="Simpan" data-dismiss="modal" ng-model="datainput.nm_penyakit">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="UpdatePenyakit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Ubah Data Penyakit</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Kode Penyakit</label>
+                        <input class="form-control" ng-model="DataSelected.kd_penyakit">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Penyakit</label>
+                        <input class="form-control" ng-model="DataSelected.nm_penyakit">
+                    </div>
+                    <div class="form-group">
+                        <label>Penyebab</label>
+                        <input class="form-control" ng-model="DataSelected.penyebab">
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea class="form-control" rows="4" ng-model="DataSelected.keterangan"></textarea>
+                    </div>
+                    <!--<div class="form-group">
+                            <label>Foto</label>
+                            <input type="file" file-input="files" ng-model="datainput.photo" onchange="angular.element(this).scope().uploadedFile(this);">
+                        </div>-->
+                    <div class="form-group">
+                        <label>Solusi</label>
+                        <textarea class="form-control" rows="4" ng-model="DataSelected.solusi"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="Simpan" ng-model="datainput.nm_penyakit" ng-click="UpdatePenyakit()">Simpan</button>
+                    <button type="reset" class="btn btn-success">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

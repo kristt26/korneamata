@@ -1,0 +1,153 @@
+<div ng-init="Init()" style="margin-left: 300px;margin-right: 300px;">
+    <div ng-show="Nilai==1">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <!-- <div class="panel-heading">
+                                Basic Form Elements
+                            </div> -->
+                    <div class="panel-heading">
+                        <h4><b>Jawab Pertanyaan Berikut</b></h4><br>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <h4>{{TambahGejala.Pertanyaan}}</h4>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-show="JumlahIndex - 1==NilaiIndex && Hasil=='true'" type="button" class="btn btn-primary" ng-click="PilihYa()" data-toggle="modal" data-target="#Detail">Ya</button>
+                        <button ng-show="JumlahIndex - 1==NilaiIndex && Hasil=='false'" type="button" class="btn btn-primary" ng-click="PilihYa()" data-toggle="modal" data-target="#DetailFalse">Ya</button>
+                        <button ng-show="JumlahIndex - 1 > NilaiIndex" type="button" class="btn btn-primary" ng-click="PilihYa()">Ya</button>
+                        <button ng-show="JumlahIndex - 1==NilaiIndex" type="button" class="btn btn-primary" ng-click="PilihTidak()" data-toggle="modal" data-target="#DetailTidak">Tidak</button>
+                        <button ng-show="JumlahIndex - 1 > NilaiIndex" type="button" class="btn btn-primary" ng-click="PilihTidak()">Tidak</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DetailFalse" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Information</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Mr./Mrs. {{Pesan}} <br> Segera hubungi dokter untuk pemeriksaan lebih lanjut
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" value="Simpan" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Information</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Mr./Mrs. {{Pesan}}
+                        </div>
+                        <div class="col-lg-12">
+                            <br>
+                            <b>Detail Penyakit {{DatasGejala.nm_penyakit}}</b>
+                            <img src="assets/img/{{DatasGejala.photo}}" width="500">
+
+                        </div>
+
+                        <div class="col-lg-12">
+                            <b>Keterangan</b><br> {{DatasGejala.keterangan}}
+                        </div>
+                        <div class="col-lg-12">
+                            <h5>{{DatasGejala.nm_penyakit}}</h5><br> {{DatasGejala.penyebab}}
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" value="Simpan" data-dismiss="modal" ng-click="refresh()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DetailTidak" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Information</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Mr./Mrs. {{Pesan}} <br> Segera hubungi doter untuk pemeriksaan lebih lanjut
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" value="Simpan" data-dismiss="modal" ng-click="refresh()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-show="Nilai==0">
+        <div class="row">
+            <!-- page header -->
+            <div class="col-lg-12">
+                <h1 class="page-header">Daftar Penyakit Mata</h1>
+            </div>
+            <!--end page header -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <!-- <div class="panel-heading">
+                    Basic Form Elements
+                </div> -->
+                    <div class="panel-body">
+                        <ol type="1">
+                            <li ng-repeat="item in DatasPenyakit">
+                                {{$index+1}}.
+                                <a ng-click="Pertanyaan(item)">{{item.nm_penyakit}}</a>
+
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

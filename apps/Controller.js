@@ -652,4 +652,10 @@ angular.module("Ctrl", [])
 
     }
 
+})
+
+.controller("LaporanController", function($scope, $http, $rootScope, SessionService, $location) {
+    $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+    $scope.data = [300, 500, 100];
+
 });

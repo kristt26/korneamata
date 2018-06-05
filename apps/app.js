@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngRoute", "Ctrl"]);
+var app = angular.module("app", ["ngRoute", "Ctrl", "chart.js"]);
 
 app.run(function($rootScope, $http) {
     var url = "//freegeoip.net/json/";
@@ -62,7 +62,7 @@ app.controller("LogoutController", function($scope, $http) {
 
 });
 
-app.config(function($routeProvider) {  
+app.config(function($routeProvider, ChartJsProvider) {  
     $routeProvider   
         .when("/Main", {
             templateUrl: "apps/Views/main.html",
@@ -115,34 +115,17 @@ app.config(function($routeProvider) {  
         controller: "PasienController"
     })
 
-    .when("/ViewAbsen", {
-        templateUrl: "apps/Views/ViewAbsen.html",
-        controller: "ViewAbsenController"
+    .when("/Laporan", {
+        templateUrl: "apps/Views/chart.html",
+        controller: "LaporanController"
     })
 
-    .when("/HariLibur", {
-        templateUrl: "apps/Views/HariLibur.html",
-        controller: "HariLiburController"
-    })
+    .otherwise({ redirectTo: '/Main' });
 
-    .when("/Perangkat", {
-        templateUrl: "apps/Views/Perangkat.html",
-        controller: "PerangkatController"
-    })
-
-    .when("/StatusAbsen", {
-        templateUrl: "apps/Views/StatusAbsen.html",
-        controller: "StatusAbsenController"
-    })
-
-    .when("/Collies", {
-        templateUrl: "apps/Views/Collies.html",
-        controller: "ColliesController"
-    })
-
-    .otherwise({ redirectTo: '/Main' })
-
+    ChartJsProvider.setOptions({ colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
 })
+
+
 
 
 

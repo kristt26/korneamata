@@ -58,7 +58,7 @@ angular.module("Ctrl", [])
         // reader.readAsDataURL(element.files[0]);
         $scope.$apply(function($scope) {
             $scope.files = element.files;
-            $scope.DataSelected.photo = $scope.files[0].namefile;
+            //$scope.DataSelected.photo = $scope.files[0].namefile;
         });
     }
 
@@ -160,7 +160,7 @@ angular.module("Ctrl", [])
 
                 })
             $http({
-                url: "http://localhost/mata/api/datas/upload.php", //or your add enquiry services
+                url: "api/datas/upload.php", //or your add enquiry services
                 method: "POST",
                 processData: false,
                 headers: { 'Content-Type': undefined },

@@ -47,17 +47,17 @@ class Pasien{
         $query = "INSERT INTO
                    " . $this->table_name . "
                SET
-                   nama=:nama, kelamin=:kelamin, alamat=:alamat, pekerjaan=:pekerjaan";
+                   nama=:nama, kelamin=:kelamin";
         $stmt = $this->conn->prepare($query);
         $this->nama=htmlspecialchars(strip_tags($this->nama));
         $this->kelamin=htmlspecialchars(strip_tags($this->kelamin));
-        $this->alamat=htmlspecialchars(strip_tags($this->alamat));
-        $this->pekerjaan=htmlspecialchars(strip_tags($this->pekerjaan));
+        // $this->alamat=htmlspecialchars(strip_tags($this->alamat));
+        // $this->pekerjaan=htmlspecialchars(strip_tags($this->pekerjaan));
        
         $stmt->bindParam(":nama", $this->nama);
         $stmt->bindParam(":kelamin", $this->kelamin);
-        $stmt->bindParam(":alamat", $this->alamat);
-        $stmt->bindParam(":pekerjaan", $this->pekerjaan);
+        // $stmt->bindParam(":alamat", $this->alamat);
+        // $stmt->bindParam(":pekerjaan", $this->pekerjaan);
         
         if($stmt->execute()){
             $this->Id = $this->conn->lastInsertId();

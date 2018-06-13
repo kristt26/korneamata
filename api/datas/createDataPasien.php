@@ -28,11 +28,11 @@ $data =json_decode(file_get_contents("php://input"));
 // set product property values
 $pasien->nama = $data->Pasien->nama;
 $pasien->kelamin = $data->Pasien->sex;
-$pasien->alamat = $data->Pasien->alamat;
-$pasien->pekerjaan = $data->Pasien->pekerjaan;
+// $pasien->alamat = $data->Pasien->alamat;
+// $pasien->pekerjaan = $data->Pasien->pekerjaan;
 
-$diagnosa->IdPasien = $pasien->Id;
-$diagnosa->kd_penyakit = $data->nm_penyakit;
+
+$diagnosa->IdPenyakit = $data->IdPenyakit;
 $diagnosa->noip = $data->Pasien->noip;
 $diagnosa->tanggal = date("Y-m-d h:i:sa");
 $diagnosa->hasil =$data->Hasil;
@@ -42,6 +42,7 @@ $numip = $stmt->rowCount();
 if($numip==0)
 {
     if($pasien->create()){
+        $diagnosa->IdPasien = $pasien->Id;
         if($diagnosa->create()){
             echo '{';
                 echo '"message": "'.$data->Hasil.'"';
@@ -54,6 +55,7 @@ if($numip==0)
         
     }    
 }else{
+    
     if($diagnosa->create()){
         echo '{';
             echo '"message": "'.$data->Hasil.'"';

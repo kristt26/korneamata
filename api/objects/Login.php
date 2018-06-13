@@ -20,7 +20,7 @@ class Login{
     function CheckSession()
     {
         session_start();
-        if(!isset($_SESSION['Nip']))
+        if(!isset($_SESSION['Nama']))
         {
             return false;
         }else{

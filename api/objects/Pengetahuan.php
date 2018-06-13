@@ -49,6 +49,27 @@ class Pengetahuan
             return false;
         }
     }
+
+    public function delete()
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE IdPenyakit = ? and IdGejala = ?";
+        $stmt = $this->conn->prepare($query);
+    
+       // sanitize
+        $this->IdPenyakit=htmlspecialchars(strip_tags($this->IdPenyakit));
+        $this->IdGejala=htmlspecialchars(strip_tags($this->IdGejala));
+    
+       // bind id of record to delete
+        $stmt->bindParam(1, $this->IdPenyakit);
+        $stmt->bindParam(2, $this->IdGejala);
+       // execute query
+        if($stmt->execute()){
+            return true;
+        }else
+        {
+        return false;
+        }
+    }
 }
 
 ?>

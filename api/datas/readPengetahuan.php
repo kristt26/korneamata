@@ -53,6 +53,7 @@
                     $gejala->IdGejala= $IdGejala;
                     $stmtGejala = $gejala->readById();
                     $GejalaItem = array(
+                        "IdPenyakit" => $IdPenyakit,
                         "IdGejala" => $IdGejala, 
                         "kd_gejala" => $gejala->kd_gejala,
                         "nm_gejala" => $gejala->nm_gejala,

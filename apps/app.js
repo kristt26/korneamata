@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngRoute", "Ctrl", "chart.js"]);
+var app = angular.module("app", ["ngRoute", "Ctrl", "chart.js", "ng-fusioncharts"]);
 
 app.run(function($rootScope, $http) {
     var url = "//freegeoip.net/json/";
@@ -44,23 +44,23 @@ app.controller("LoginController", function($scope, $http) {
     }
 });
 
-app.controller("LogoutController", function($scope, $http) {
-    $scope.Logout = function() {
-        var Urlauth = "api/datas/logout.php";
-        $http({
-                method: "get",
-                url: Urlauth,
-            })
-            .then(function(response) {
-                if (response.data.message == true) {
-                    window.location.href = 'index.html';
-                }
-            }, function(error) {
-                alert(error.message);
-            })
-    }
+// app.controller("LogoutController", function($scope, $http) {
+//     $scope.Logout = function() {
+//         var Urlauth = "api/datas/logout.php";
+//         $http({
+//                 method: "get",
+//                 url: Urlauth,
+//             })
+//             .then(function(response) {
+//                 if (response.data.message == true) {
+//                     window.location.href = 'index.html';
+//                 }
+//             }, function(error) {
+//                 alert(error.message);
+//             })
+//     }
 
-});
+// });
 
 app.config(function($routeProvider, ChartJsProvider) {  
     $routeProvider   
@@ -80,7 +80,7 @@ app.config(function($routeProvider, ChartJsProvider) {  
     })
 
     .when("/Logout", {
-        templateUrl: "",
+        templateUrl: "apps/Views/log.html",
         controller: "LogoutController"
     })
 
@@ -148,23 +148,34 @@ app.config(function($routeProvider, ChartJsProvider) {  
 }])
 
 
-.factory("SessionService", function($http, $rootScope) {
-    var service = {};
-    $rootScope.Session = {};
-    // var Urlauth = "api/datas/auth.php";
-    // $http({
-    //         method: "get",
-    //         url: Urlauth,
-    //     })
-    //     .then(function(response) {
-    //         if (response.data.Session == false) {
-    //             window.location.href = 'login.html';
-    //         } else
-    //             $rootScope.Session = response.data.Session;
-    //     }, function(error) {
-    //         alert(error.message);
-    //     })
+.factory("SessionService", function($http, $rootScope, $location) {
 
+    var service = {};
+    service.get = function() {
+        $rootScope.Session = {};
+        var Urlauth = "api/datas/auth.php";
+        $http({
+                method: "get",
+                url: Urlauth,
+            })
+            .then(function(response) {
+                if (response.data.Session == false) {
+                    window.location.href = 'index.html';
+                } else
+                    $rootScope.Session = response.data.Session;
+            }, function(error) {
+                alert(error.message);
+            })
+    }
+
+    service.cek = function() {
+        var url = $location.absUrl();
+        if (url == "http://localhost/korneamata/admin.html#!/Main") {
+            service.get();
+        }
+        // $scope.firstParameter = url[2];
+        // $scope.secondParameter = url[3];
+    }
 
     return service;
 })

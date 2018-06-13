@@ -1,21 +1,8 @@
 angular.module("Ctrl", [])
 
-.controller("MainController", function($scope, $http, SessionService) {
+.controller("MainController", function($scope, SessionService) {
     $scope.Init = function() {
-        //Auth
-        // var Urlauth = "api/datas/auth.php";
-        // $http({
-        //         method: "get",
-        //         url: Urlauth,
-        //     })
-        //     .then(function(response) {
-        //         if (response.data.Session == false) {
-        //             window.location.href = 'login.html';
-        //         } else
-        //             $rootScope.Session = response.data.Session;
-        //     }, function(error) {
-        //         alert(error.message);
-        //     })
+        SessionService.cek();
     }
 })
 
@@ -416,6 +403,7 @@ angular.module("Ctrl", [])
     $scope.DatasGejala = [];
     $scope.SelectedGejala = {};
     $scope.DataSimpan = {};
+    $scope.ItemSelected = {};
     $scope.Init = function() {
         var UrlGetPengetahuan = "api/datas/readPengetahuan.php";
         $http({
@@ -470,6 +458,34 @@ angular.module("Ctrl", [])
         })
         $scope.SelectedPenyakit.Nilai = 1;
         var a = $scope.SelectedPenyakit;
+    }
+
+    $scope.Delete = function(item) {
+        $scope.ItemSelected = item;
+        var Data = $scope.ItemSelected;
+        var URLDelete = "api/datas/deletePengetahuan.php";
+        $http({
+                method: "post",
+                url: URLDelete,
+                data: Data
+            })
+            .then(function(response) {
+                if (response.data.message == "Pengetahuan was deleted") {
+                    angular.forEach($scope.DatasPengetahuan, function(valuePenyakit, keyPenyakit) {
+                        if (valuePenyakit.IdPenyakit == Data.IdPenyakit) {
+                            angular.forEach(valuePenyakit.Gejala, function(valueGejala, keyGejala) {
+                                if (valueGejala.IdGejala == Data.IdGejala) {
+                                    valuePenyakit.Gejala.splice(Data, 1);
+                                }
+                            })
+                        }
+                    })
+                }
+
+            }, function(error) {
+
+            })
+
     }
 })
 
@@ -655,7 +671,56 @@ angular.module("Ctrl", [])
 })
 
 .controller("LaporanController", function($scope, $http, $rootScope, SessionService, $location) {
-    $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-    $scope.data = [300, 500, 100];
+    $scope.dataSource = {};
+    $scope.Init = function() {
+        var UrlGetPengetahuan = "api/datas/readDataAnalisa.php";
+        $http({
+                method: "get",
+                url: UrlGetPengetahuan
+            })
+            .then(function(response) {
+                // $scope.labels = response.data.Nama;
+                // $scope.data = response.data.Jumlah;
+                $scope.dataSource = {
+                    "chart": {
+                        caption: "Laporan Hasil Diagnosa Penyakit Kornea Mata",
+                        startingangle: "120",
+                        showlabels: "0",
+                        showlegend: "1",
+                        enablemultislicing: "0",
+                        slicingdistance: "15",
+                        showpercentvalues: "1",
+                        showpercentintooltip: "0",
+                        plottooltext: "Age group : $label Total visit : $datavalue",
+                        theme: "fint"
+
+                    },
+                    "data": response.data.data
+                };
+
+            }, function(error) {
+                alert(error.message);
+            })
+    }
+
+
+})
+
+.controller("LogoutController", function($scope, $http, SessionService) {
+    $scope.Init = function() {
+        var Url = "api/datas/logout.php";
+        $http({
+                method: "get",
+                url: Url
+            })
+            .then(function(response) {
+                if (response.data.message == true) {
+                    SessionService.get();
+                }
+            }, function(error) {
+                alert(error.message);
+            })
+    }
+
 
 });

@@ -5,7 +5,7 @@ class Diagnosa{
 
     public $id;
     public $IdPasien;
-    public $kd_penyakit;
+    public $IdPenyakit;
     public $noip;
     public $tanggal;
     public $hasil;
@@ -14,6 +14,25 @@ class Diagnosa{
         $this->conn = $db;
     }
 
+
+    public function read()
+    {
+        // select all query
+        $query = "SELECT * from " . $this->table_name . " WHERE IdPenyakit=? and hasil=?";
+    
+       // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        $this->IdPenyakit=htmlspecialchars(strip_tags($this->IdPenyakit));
+        $this->hasil=htmlspecialchars(strip_tags($this->hasil));
+
+        $stmt->bindParam(1, $this->IdPenyakit);
+        $stmt->bindParam(2, $this->hasil);
+    
+       // execute query
+        $stmt->execute();
+    
+        return $stmt;
+    }
 
     public function readOne()
     {
@@ -28,6 +47,8 @@ class Diagnosa{
         
            // execute query
            $stmt->execute();
+           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+           $this->IdPasien = $row['IdPasien'];
         
            return $stmt;
     }
@@ -37,18 +58,18 @@ class Diagnosa{
         $query = "INSERT INTO
                    " . $this->table_name . "
                SET
-                   IdPasien=:IdPasien, kd_penyakit=:kd_penyakit, noip=:noip, tanggal=:tanggal, hasil=:hasil";
+                   IdPasien=:IdPasien, IdPenyakit=:IdPenyakit, noip=:noip, tanggal=:tanggal, hasil=:hasil";
 
         $stmt = $this->conn->prepare($query);
 
         $this->IdPasien=htmlspecialchars(strip_tags($this->IdPasien));
-        $this->kd_penyakit=htmlspecialchars(strip_tags($this->kd_penyakit));
+        $this->IdPenyakit=htmlspecialchars(strip_tags($this->IdPenyakit));
         $this->noip=htmlspecialchars(strip_tags($this->noip));
         $this->tanggal=htmlspecialchars(strip_tags($this->tanggal));
         $this->hasil=htmlspecialchars(strip_tags($this->hasil));
 
         $stmt->bindParam(":IdPasien", $this->IdPasien);
-        $stmt->bindParam(":kd_penyakit", $this->kd_penyakit);
+        $stmt->bindParam(":IdPenyakit", $this->IdPenyakit);
         $stmt->bindParam(":noip", $this->noip);
         $stmt->bindParam(":tanggal", $this->tanggal);
         $stmt->bindParam(":hasil", $this->hasil);

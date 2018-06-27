@@ -1,4 +1,4 @@
-var app = angular.module("app", ["ngRoute", "Ctrl", "chart.js", "ng-fusioncharts"]);
+var app = angular.module("app", ["ngRoute", "Ctrl", "ng-fusioncharts"]);
 
 app.run(function($rootScope, $http) {
     var url = "//freegeoip.net/json/";
@@ -33,7 +33,6 @@ app.controller("LoginController", function($scope, $http) {
             })
             .then(function(response) {
                 if (response.data.Message == "Success") {
-                    alert("Berhasil Ditambah");
                     window.location.href = 'admin.html';
                 } else
                     alert("Data Gagal disimpan");
@@ -62,7 +61,7 @@ app.controller("LoginController", function($scope, $http) {
 
 // });
 
-app.config(function($routeProvider, ChartJsProvider) {  
+app.config(function($routeProvider) {  
     $routeProvider   
         .when("/Main", {
             templateUrl: "apps/Views/main.html",
@@ -122,7 +121,7 @@ app.config(function($routeProvider, ChartJsProvider) {  
 
     .otherwise({ redirectTo: '/Main' });
 
-    ChartJsProvider.setOptions({ colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
+    // ChartJsProvider.setOptions({ colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
 })
 
 

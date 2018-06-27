@@ -691,7 +691,7 @@ angular.module("Ctrl", [])
                         slicingdistance: "15",
                         showpercentvalues: "1",
                         showpercentintooltip: "0",
-                        plottooltext: "Age group : $label Total visit : $datavalue",
+                        plottooltext: "Penyakit : $label Total visit : $datavalue",
                         theme: "fint"
 
                     },

@@ -12,7 +12,57 @@
     </button>
     <div class="row">
         <div class="col-md-12">
-            <div class="panel-group" id="Penyakit">
+            <div class="accordion" id="accordionExample">
+                <div class="card m-b-0 border-top" ng-repeat="ItemPenyakit in DatasPengetahuan">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-target="#{{ItemPenyakit.IdPenyakit}}" aria-expanded="true" aria-controls="{{ItemPenyakit.IdPenyakit}}">
+                                <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>
+                                <span>{{ItemPenyakit.nm_penyakit}}</span>
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="{{ItemPenyakit.IdPenyakit}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title m-b-0">Static Table</h5>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Gejala</th>
+                                            <th scope="col">Nama Gejala</th>
+                                            <th scope="col">Photo</th>
+                                            <th scope="col">Keterangan</th>
+                                            <td scope="col">Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr scope="row" ng-repeat="itemGejala in ItemPenyakit.Gejala">
+                                            <td>{{$index+1}}</td>
+                                            <td>{{itemGejala.kd_gejala}}</td>
+                                            <td>{{itemGejala.nm_gejala}}</td>
+                                            <td class="center"><img src="assets/img/{{itemGejala.Photo}}" width="100"></td>
+                                            <td>{{itemGejala.Keterangan}}</td>
+                                            <td>
+                                                <button class="btn btn-info btn-circle pull-left" title="Delete Gejala" ng-click="Delete(itemGejala)">
+                                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                                        </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- <div class="panel-group" id="Penyakit">
                 <div class="panel panel-default" ng-repeat="ItemPenyakit in DatasPengetahuan">
                     <div class="panel-heading">
                         <a class="panel-title" data-toggle="collapse" data-parent="#Penyakit" href="!#{{ItemPenyakit.IdPenyakit}}">{{ItemPenyakit.nm_penyakit}}</a>
@@ -55,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

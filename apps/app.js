@@ -1,12 +1,12 @@
 var app = angular.module("app", ["ngRoute", "Ctrl", "ng-fusioncharts"]);
 
-app.run(function($rootScope, $http) {
-    var url = "//freegeoip.net/json/";
-    $http.get(url).then(function(response) {
-        console.log(response.data.ip);
-        $rootScope.ip = response.data.ip;
-    });
-});
+// app.run(function($rootScope, $http) {
+//     var url = "//https://ipinfo.io/json";
+//     $http.get(url).then(function(response) {
+//         console.log(response.data.ip);
+//         $rootScope.ip = response.data.ip;
+//     });
+// });
 
 app.directive("fileInput", function($parse) {
     return {
@@ -20,6 +20,8 @@ app.directive("fileInput", function($parse) {
         }
     }
 });
+
+
 
 app.controller("LoginController", function($scope, $http) {
     $scope.DataLogin = {};
@@ -119,6 +121,11 @@ app.config(function($routeProvider) {  
         controller: "LaporanController"
     })
 
+    .when("/ChangePassword", {
+        templateUrl: "apps/Views/ChangePassword.html",
+        controller: "ChangePasswordController"
+    })
+
     .otherwise({ redirectTo: '/Main' });
 
     // ChartJsProvider.setOptions({ colors: ['#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'] });
@@ -176,7 +183,22 @@ app.config(function($routeProvider) {  
         // $scope.secondParameter = url[3];
     }
 
+    service.GetIP = function() {
+        var url = "https://ipinfo.io/json";
+        $http.get(url).then(function(response) {
+            //console.log(response.data.ip);
+            $rootScope.ip = response.data.ip;
+        });
+    }
+
+    service.AmbilIp = function() {
+        service.GetIP();
+
+    }
+
     return service;
 })
+
+
 
 ;

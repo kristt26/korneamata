@@ -117,35 +117,18 @@ class Login{
        $query = "UPDATE
                    " . $this->table_name . "
                SET
-                    Nama=:Nama, 
-                    Alamat=:Alamat, 
-                    Kontak=:Kontak, 
-                    Sex=:Sex, 
-                    IdBidang=:IdBidang, 
-                    Jabatan=:Jabatan
+                    Password=:Password
                WHERE
-                   Nip = :Nip";
+                   Email =:Email";
     
        // prepare query statement
        $stmt = $this->conn->prepare($query);
     
        // sanitize
-       $this->Nip=htmlspecialchars(strip_tags($this->Nip));
-       $this->Nama=htmlspecialchars(strip_tags($this->Nama));
-       $this->Alamat=htmlspecialchars(strip_tags($this->Alamat));
-       $this->Kontak=htmlspecialchars(strip_tags($this->Kontak));
-       $this->Sex=htmlspecialchars(strip_tags($this->Sex));
-       $this->IdBidang=htmlspecialchars(strip_tags($this->IdBidang));
-       $this->Jabatan=htmlspecialchars(strip_tags($this->Jabatan));
     
        // bind new values
-       $stmt->bindParam(":Nip", $this->Nip);
-       $stmt->bindParam(":Nama", $this->Nama);
-       $stmt->bindParam(":Alamat", $this->Alamat);
-       $stmt->bindParam(":Kontak", $this->Kontak);
-       $stmt->bindParam(":Sex", $this->Sex);
-       $stmt->bindParam(":IdBidang", $this->IdBidang);
-       $stmt->bindParam(":Jabatan", $this->Jabatan);
+       $stmt->bindParam(":Password", $this->Password);
+       $stmt->bindParam(":Email", $this->Email);
     
        // execute the query
        if($stmt->execute()){

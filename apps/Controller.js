@@ -6,6 +6,141 @@ angular.module("Ctrl", [])
     }
 })
 
+.controller("IndexController", function($scope, $http, $rootScope, SessionService) {
+    $scope.DatasPasien = {};
+    $scope.DatasPenyakit = [];
+    $scope.DatasGejala = {};
+    $scope.Nilai = 0;
+    $scope.NilaiIndex = 0;
+    $scope.DataTampung = [];
+    $scope.JumlahIndex = 0;
+    $scope.TampilGejala = {};
+    $scope.Hasil = "true";
+    $scope.Pesan = "";
+    $scope.Tidak = 0;
+    $scope.HasilPersen = 0;
+    $scope.Init = function() {
+        SessionService.AmbilIp();
+        var UrlSlide = "api/datas/readPengetahuan.php";
+        $http({
+                method: "GET",
+                url: UrlSlide
+            })
+            .then(function(response) {
+                $scope.DatasPenyakit = response.data;
+            }, function(error) {
+                alert(error);
+            })
+
+        var UrlGetGejala = "api/datas/readGejala.php";
+        $http({
+                method: "get",
+                url: UrlGetGejala
+            })
+            .then(function(response) {
+                $scope.DatasGejala = response.data.records;
+            }, function(error) {
+                alert(error.message);
+            })
+    }
+    $scope.refresh = function() {
+        window.location.href = 'index.html#!/Main#contact';
+    }
+    $scope.PanggilPenyakit = function() {
+        SessionService.AmbilIp();
+        $scope.DatasPasien.noip = $rootScope.ip;
+        $scope.aktif = true;
+    }
+    $scope.Pertanyaan = function(item) {
+        $scope.aktif = false;
+        $scope.Nilai = 1;
+        $scope.DatasGejala = item;
+        $scope.JumlahIndex = $scope.DatasGejala.Gejala.length;
+        $scope.TambahGejala = $scope.DatasGejala.Gejala[$scope.NilaiIndex];
+    }
+    $scope.PilihYa = function() {
+        //$scope.DataTampung.push(angular.copy($scope.TambahGejala));
+        if (($scope.JumlahIndex - 1) != $scope.NilaiIndex) {
+            $scope.NilaiIndex++;
+            $scope.TambahGejala = $scope.DatasGejala.Gejala[$scope.NilaiIndex];
+        } else {
+            if ($scope.Hasil == "true") {
+                $scope.DatasGejala.Pasien = $scope.DatasPasien;
+                $scope.DatasGejala.Hasil = $scope.Hasil;
+                var Data = $scope.DatasGejala;
+                var UrlDiagnosa = "api/datas/createDataPasien.php";
+                $http({
+                        method: "post",
+                        url: UrlDiagnosa,
+                        data: Data
+                    })
+                    .then(function(response) {
+                        if (response.data.message == "true") {
+                            $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                            $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
+
+                        } else
+                            alert("Data Gagal disimpan");
+                    }, function(error) {
+                        alert(error.message);
+                    })
+            } else {
+                $scope.DatasGejala.Pasien = $scope.DatasPasien;
+                $scope.DatasGejala.Hasil = $scope.Hasil;
+                var Data = $scope.DatasGejala;
+                var UrlDiagnosa = "api/datas/createDataPasien.php";
+                $http({
+                        method: "post",
+                        url: UrlDiagnosa,
+                        data: Data
+                    })
+                    .then(function(response) {
+                        if (response.data.message == "false") {
+                            $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                            $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda Kemungkinan Tidak Mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
+
+                        } else
+                            alert("Data Gagal disimpan");
+                    }, function(error) {
+                        alert(error.message);
+                    })
+            }
+
+        }
+    }
+
+    $scope.PilihTidak = function() {
+        $scope.Tidak++;
+        $scope.Hasil = "false";
+        if (($scope.JumlahIndex - 1) != $scope.NilaiIndex) {
+            $scope.NilaiIndex++;
+            $scope.TambahGejala = $scope.DatasGejala.Gejala[$scope.NilaiIndex];
+        } else {
+            $scope.DatasGejala.Pasien = $scope.DatasPasien;
+            $scope.DatasGejala.Hasil = $scope.Hasil;
+            var Data = $scope.DatasGejala;
+            var UrlDiagnosa = "api/datas/createDataPasien.php";
+            $http({
+                    method: "post",
+                    url: UrlDiagnosa,
+                    data: Data
+                })
+                .then(function(response) {
+                    if (response.data.message == "false") {
+                        $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                        $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda Kemungkinan Tidak Mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
+                        alert(mes);
+
+                    } else
+                        alert("Data Gagal disimpan");
+                }, function(error) {
+                    alert(error.message);
+                })
+        }
+
+    }
+})
+
 
 .controller("penyakitController", function($scope, $http, $rootScope, SessionService, fileUpload) {
     $scope.datainput = {};
@@ -492,6 +627,7 @@ angular.module("Ctrl", [])
 .controller("DaftarPenyakitController", function($scope, $http, $rootScope, SessionService) {
     $scope.DatasPenyakit = [];
     $scope.Init = function() {
+
         var UrlGetPenyakit = "api/datas/readPenyakit.php";
         $http({
                 method: "get",
@@ -723,4 +859,70 @@ angular.module("Ctrl", [])
     }
 
 
+})
+
+.controller("ChangePasswordController", function($scope, $http, SessionService) {
+    $scope.username = '';
+    $scope.email = '';
+    $scope.passw1 = '';
+    $scope.passw2 = '';
+    $scope.DatasUser = {};
+
+    $scope.edit = true;
+    $scope.error = false;
+    $scope.incomplete = true;
+    $scope.hideform = true;
+
+    $scope.Init = function() {
+        SessionService.cek();
+        var UrlGetSession = "api/datas/auth.php";
+        $http({
+                method: "GET",
+                url: UrlGetSession
+            })
+            .then(function(response) {
+                $scope.username = response.data.Session.Nama;
+                $scope.email = response.data.Session.Email;
+
+            }, function(error) {
+                alert(error.message);
+
+            })
+    }
+    $scope.Changes = function() {
+        var UrlChange = "api/datas/ChangePassword.php";
+        $http({
+                method: "POST",
+                url: UrlChange,
+                data: $scope.passw1
+            })
+            .then(function(response) {
+                if (response.data.message == "Success") {
+                    alert("Password Changed");
+                    window.location.href = 'admin.html#!/Main';
+                } else
+                    alert("Fatal Error: Password not Changed");
+            }, function(error) {
+                alert(error.message);
+            })
+    }
+
+    //$scope.$watch('passw1', function() { $scope.test(); });
+    $scope.$watch('passw2', function() { $scope.test(); });
+    $scope.$watch('username', function() { $scope.test(); });
+    $scope.$watch('email', function() { $scope.test(); });
+
+    $scope.test = function() {
+        if ($scope.passw1 !== $scope.passw2) {
+            $scope.error = true;
+        } else {
+            $scope.error = false;
+        }
+        $scope.incomplete = false;
+        if ($scope.edit && (!$scope.username.length ||
+                !$scope.email.length ||
+                !$scope.passw1.length || !$scope.passw2.length)) {
+            $scope.incomplete = true;
+        }
+    };
 });

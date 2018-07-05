@@ -25,9 +25,9 @@
                     <div id="{{ItemPenyakit.IdPenyakit}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
                             <div class="card">
-                                <div class="card-body">
+                                <!-- <div class="card-body">
                                     <h5 class="card-title m-b-0">Static Table</h5>
-                                </div>
+                                </div> -->
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -44,9 +44,11 @@
                                             <td>{{$index+1}}</td>
                                             <td>{{itemGejala.kd_gejala}}</td>
                                             <td>{{itemGejala.nm_gejala}}</td>
-                                            <td class="center"><img src="assets/img/{{itemGejala.Photo}}" width="100"></td>
-                                            <td>{{itemGejala.Keterangan}}</td>
-                                            <td>
+                                            <td class="center">
+                                                <a href="assets/img/{{itemGejala.Photo}}" target="_blank"><img src="assets/img/{{itemGejala.Photo}}" width="100px" height="70px"></a>
+                                            </td>
+                                            <td width="50%">{{itemGejala.Keterangan}}</td>
+                                            <td width="5%">
                                                 <button class="btn btn-info btn-circle pull-left" title="Delete Gejala" ng-click="Delete(itemGejala)">
                                                             <i class="fa fa-times" aria-hidden="true"></i>
                                                         </button>

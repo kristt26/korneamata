@@ -38,10 +38,12 @@
                                 <tr class="odd gradeX" ng-repeat="item in DatasGejala">
                                     <td>{{item.kd_gejala}}</td>
                                     <td>{{item.nm_gejala}}</td>
-                                    <td>{{item.Pertanyaan}}</td>
-                                    <td class="center"><img src="assets/img/{{item.Photo}}" width="100"></td>
+                                    <td width="20%">{{item.Pertanyaan}}</td>
+                                    <td class="center">
+                                        <a href="assets/img/{{item.Photo}}" target="_blank"><img src="assets/img/{{item.Photo}}" width="100px" height="70px"></a>
+                                    </td>
                                     <td class="center">{{item.Keterangan}}</td>
-                                    <td width="10%">
+                                    <td width="5%">
                                         <button class="btn btn-info btn-circle pull-left" title="Update Gejala" data-toggle="modal" data-target="#UpdateGejala" ng-click="Selected(item)">
                                             <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
                                         </button>

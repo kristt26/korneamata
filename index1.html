@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by TEMPLATED
+http://templated.co
+Released for free under the Creative Commons Attribution License
+
+Name       : Swarming 
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20131201
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="assets/fonts.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="assets/scripts/angular.js"></script>
+    <script src="assets/scripts/angular-route.js"></script>
+    <script src="assets/scripts/angular-animate.min.js"></script>
+    <!-- <script src="node_modules/chart.js/dist/Chart.min.js"></script> -->
+    <!-- <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script> -->
+    <script type="text/javascript" src="node_modules/angular-fusioncharts.min.js"></script>
+    <script type="text/javascript" src="node_modules/fusioncharts.js"></script>
+    <script type="text/javascript" src="node_modules/fusioncharts.charts.js"></script>
+    <!-- <script type="text/javascript" src="node_modules/zune-theme.js"></script> -->
+    <script src="apps/app.js"></script>
+    <script src="apps/Controller.js"></script>
+    <!--<script src="https://unpkg.com/angular/angular.js"></script>-->
+
+    <link href="assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+
+</head>
+
+<body ng-app="app">
+    <div id="logo">
+        <h1>
+            <a href="#"><img src="assets/images/icon.png" width="75px" /><span>SISTEM PAKAR PENYAKIT KORNEA MATA</span></a>
+        </h1>
+    </div>
+    <div id="header">
+        <div id="menu" class="container">
+            <ul>
+                <li class="current_page_item"><a href="#" title="">Beranda</a></li>
+                <li><a href="#!PenyakitUser"><i class="fa fa-user fa-fw"></i>Penyakit</a></li>
+                <li><a href="#!GejalaUser" title="">Gejala</a></li>
+                <li><a href="#!Konsultasi" title="">Konsultasi</a></li>
+                <li><a href="#Login" title="" data-toggle="modal" data-target="#Login">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="page-wrapper">
+        <ng-view></ng-view>
+    </div>
+
+    <div id="copyright" class="container">
+        <p>&copy; Panji</p>
+    </div>
+
+    <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="LoginController">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4 text-center logo-margin ">
+                    <!--<img src="assets/img/logo.png" alt="" />-->
+                </div>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Please Sign In</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus ng-model="DataLogin.Username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="Password" name="password" type="password" value="" ng-model="DataLogin.Password">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+															<input name="remember" type="checkbox" value="Remember Me">Remember Me
+														</label>
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <a href="#" class="btn btn-lg btn-success btn-block" ng-click="Login()">Login</a>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/plugins/jquery-1.10.2.js"></script>
+    <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+</body>
+
+</html>

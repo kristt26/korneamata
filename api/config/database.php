@@ -2,17 +2,17 @@
 class Database{
  
     // specify your own database credentials
-    // private $host = "den1.mysql2.gear.host";
-    // private $db_name = "dbmata";
-    // private $username = "dbmata";
-    // private $password = "Jl08P_8-41Fp";
-    // public $conn;
+    private $host = "den1.mysql2.gear.host";
+    private $db_name = "dbmata";
+    private $username = "dbmata";
+    private $password = "Jl08P_8-41Fp";
+    public $conn;
  // specify your own database credentials
- private $host = "localhost";
- private $db_name = "db_mata";
- private $username = "root";
- private $password = "";
- public $conn;
+//  private $host = "localhost";
+//  private $db_name = "db_mata";
+//  private $username = "root";
+//  private $password = "";
+//  public $conn;
 
     // get the database connection
     public function getConnection(){

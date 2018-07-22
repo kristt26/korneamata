@@ -186,7 +186,7 @@ angular.module("Ctrl", [])
 
     $scope.Simpan = function() {
         $http({
-            url: "http://localhost/mata/api/datas/upload.php", //or your add enquiry services
+            url: "http://localhost/korneamata/api/datas/upload.php", //or your add enquiry services
             method: "POST",
             processData: false,
             headers: { 'Content-Type': undefined },
@@ -381,7 +381,7 @@ angular.module("Ctrl", [])
 
     $scope.Simpan = function() {
         $http({
-            url: "http://localhost/mata/api/datas/upload.php", //or your add enquiry services
+            url: "http://localhost/korneamata/api/datas/upload.php", //or your add enquiry services
             method: "POST",
             processData: false,
             headers: { 'Content-Type': undefined },
@@ -413,9 +413,10 @@ angular.module("Ctrl", [])
                     })
                     .then(function(response) {
                         if (response.data.message != "0") {
-                            Data.IdGejala = response.data;
+                            Data.IdGejala = response.data.message;
                             $scope.DatasGejala.push(angular.copy(Data));
                             alert("Success");
+                            window.location.href = "admin.html#!/Gejala";
                         } else
                             alert("Data Gagal disimpan");
                     }, function(error) {
@@ -473,7 +474,7 @@ angular.module("Ctrl", [])
 
                 })
             $http({
-                url: "http://localhost/mata/api/datas/upload.php", //or your add enquiry services
+                url: "http://localhost/korneamata/api/datas/upload.php", //or your add enquiry services
                 method: "POST",
                 processData: false,
                 headers: { 'Content-Type': undefined },

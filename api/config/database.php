@@ -9,7 +9,7 @@ class Database{
     // public $conn;
 //  specify your own database credentials
  private $host = "localhost";
- private $db_name = "db_mata";
+ private $db_name = "mata";
  private $username = "root";
  private $password = "";
  public $conn;

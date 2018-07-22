@@ -3,7 +3,7 @@ class Login{
  
     // database connection and table name
     private $conn;
-    private $table_name = "user";
+    private $table_name = "admin";
  
     // object properties
     public $Id;

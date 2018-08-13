@@ -60,7 +60,7 @@ angular.module("Ctrl", [])
     }
     $scope.PilihYa = function() {
         //$scope.DataTampung.push(angular.copy($scope.TambahGejala));
-        if (($scope.JumlahIndex - 1) != $scope.NilaiIndex) {
+        if ($scope.JumlahIndex != $scope.NilaiIndex) {
             $scope.NilaiIndex++;
             $scope.TambahGejala = $scope.DatasGejala.Gejala[$scope.NilaiIndex];
         } else {
@@ -76,7 +76,7 @@ angular.module("Ctrl", [])
                     })
                     .then(function(response) {
                         if (response.data.message == "true") {
-                            $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                            $scope.HasilPersen = ($scope.JumlahIndex - $scope.Tidak) / ($scope.JumlahIndex) * 100;
                             $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
 
                         } else
@@ -96,7 +96,7 @@ angular.module("Ctrl", [])
                     })
                     .then(function(response) {
                         if (response.data.message == "false") {
-                            $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                            $scope.HasilPersen = ($scope.JumlahIndex - $scope.Tidak) / ($scope.JumlahIndex) * 100;
                             $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda Kemungkinan Tidak Mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
 
                         } else
@@ -127,7 +127,7 @@ angular.module("Ctrl", [])
                 })
                 .then(function(response) {
                     if (response.data.message == "false") {
-                        $scope.HasilPersen = ($scope.NilaiIndex - $scope.Tidak) / ($scope.NilaiIndex) * 100;
+                        $scope.HasilPersen = ($scope.JumlahIndex - $scope.Tidak) / ($scope.JumlahIndex) * 100;
                         $scope.Pesan = $scope.DatasGejala.Pasien.nama + " Anda Kemungkinan Tidak Mengidap Penyakit " + $scope.DatasGejala.nm_penyakit;
                         alert(mes);
 
@@ -611,7 +611,10 @@ angular.module("Ctrl", [])
                         if (valuePenyakit.IdPenyakit == Data.IdPenyakit) {
                             angular.forEach(valuePenyakit.Gejala, function(valueGejala, keyGejala) {
                                 if (valueGejala.IdGejala == Data.IdGejala) {
-                                    valuePenyakit.Gejala.splice(Data, 1);
+                                    var index = valuePenyakit.Gejala.indexOf(Data);
+                                    valuePenyakit.Gejala.splice(index, 1);
+                                    var p = "Gejala " + Data.nm_gejala + " Berhasih di hapus";
+                                    alert(p);
                                 }
                             })
                         }

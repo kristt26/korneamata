@@ -267,10 +267,10 @@
                             <div class="card">
                                 <img class="card-img-top" alt="Bootstrap Thumbnail {{$index}}" src="assets/img/{{item.photo}}" width="200px" height="100px" />
                                 <div class="card-block">
-                                    <h5 class="card-title">
-                                        {{item.nm_penyakit}}
+                                    <h5 class="card-title" style="color: azure;">
+                                        <font size="4px">{{item.nm_penyakit}}</font>
                                     </h5>
-                                    <a href="" title="Details" type="button" data-toggle="modal" data-target="#{{item.kd_penyakit}}">
+                                    <a href="" title="Details" type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{item.kd_penyakit}}">
                                         <font color="white">Details</font>
                                     </a>
                                     <div class="modal fade" id="{{item.kd_penyakit}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
